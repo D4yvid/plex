@@ -1,0 +1,1 @@
+add_subdirectory("${KERNEL_ARCH}/${KERNEL_FAMILY}/${KERNEL_PLATFORM}")

@@ -1,0 +1,5 @@
+set(KERNEL_ARCH     "arm")
+set(KERNEL_FAMILY   "rpi")
+set(KERNEL_PLATFORM "rp2350")
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
