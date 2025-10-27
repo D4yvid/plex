@@ -1,0 +1,68 @@
+# All configurations defined here are going to be compiler definitions. If a variable is empty, the definition is not set.
+#
+# The `K` suffix means `Kernel` configuration, `B` means `Boot` configuration.
+#
+# If you want to create a configuration for a specific platform, please use the following format:
+# 
+#     [K|B]CONFIG_<ARCH>_<FAMILY>_<PLATFORM>_NAME=<VALUE>
+#
+# If it is a configuration for an entire family of devices, use:
+#
+#     [K|B]CONFIG_<ARCH>_<FAMILY>_NAME=<VALUE>
+#
+# instead.
+#
+# For configurations related to the kernel/boot itself, use:
+#     
+#     [K|B]CONFIG_<NAME>=<VALUE>
+#
+# The literal '1' means `enable`, the literal '0' means `disable`. If the variable has special
+# context, or if it's not a toggle, comment above it.
+#
+# The syntax of this file is compilation definitions, so, if you want to change locally a definition
+# of the kernel compilation, it's here that you'd do it.
+
+# The architecture we're targeting
+PLEX_ARCH=arm
+
+# The family of the platform we're targeting
+PLEX_FAMILY=rpi
+
+# The platform of the family we're targeting
+PLEX_PLATFORM=rp2350
+
+#######################################################################################################################
+## Boot configuration (boot/)                                                                                        ##
+#######################################################################################################################
+
+BCONFIG_KERNEL_CMDLINE=-log
+
+# Enable standard I/O support
+BCONFIG_ARM_RPI_RP2350_ENABLE_STDIO=1
+
+# Set the driver for the standard I/O
+#
+# 0 -> Disable all standard I/O drivers (boots kernel directly)
+# 1 -> USB standard I/O
+# 2 -> RTT standard I/O
+# 3 -> UART standard I/O
+# 4 -> Use all 
+#
+# If you want to set the kernel command line while the stdio is disabled (BCONFIG_ARM_RPI_RP2350_ENABLE_STDIO=0),
+# you should set the `BCONFIG_KERNEL_CMDLINE` option.
+#
+# If the `BCONFIG_KERNEL_CMDLINE` option is used, and stdio is enabled (BCONFIG_ARM_RPI_RP2350_ENABLE_STDIO=1), the
+# loader will use the stdio to create a boot menu, where the default kernel cmdline is `BCONFIG_KERNEL_CMDLINE`.
+BCONFIG_ARM_RPI_RP2350_STDIO_MODE=1
+
+# USB-stdio only configuration: Wait for `N` ms until a connection with USB-CDC happens, this is useful if you
+# want to wait the computer to connect to the Pico before outputting anything to the stdout. `0` disables this wait delay.
+BCONFIG_ARM_RPI_RP2350_USB_STDIO_WAIT_DELAY_MS=10000
+
+#######################################################################################################################
+## Kernel configuration (kernel/)                                                                                    ##
+#######################################################################################################################
+
+# Enable kernel logging support (using platform's defined logger)
+KCONFIG_ENABLE_LOGGER=1
+

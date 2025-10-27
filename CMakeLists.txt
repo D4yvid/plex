@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
-include(KernelConfig.cmake)
-include("${CMAKE_SOURCE_DIR}/platform/${KERNEL_FAMILY}/platform.cmake")
+include(PlexConfig.cmake)
+include("${CMAKE_SOURCE_DIR}/platform/${PLEX_FAMILY}/platform.cmake")
 
 project(plex C CXX ASM)
 

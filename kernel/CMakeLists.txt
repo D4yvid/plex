@@ -2,7 +2,11 @@ project(kernel C CXX ASM)
 
 list(APPEND KERNEL_SOURCES "init/main.c")
 
-include("${PROJECT_SOURCE_DIR}/arch/${KERNEL_ARCH}/${KERNEL_FAMILY}/sources.cmake")
+if (KCONFIG_ENABLE_LOGGER)
+  list(APPEND KERNEL_SOURCES "init/logger.c")
+endif ()
+
+include("${PROJECT_SOURCE_DIR}/platform/${PLEX_ARCH}/${PLEX_FAMILY}/${PLEX_PLATFORM}/sources.cmake")
 
 add_library(kernel
   STATIC ${KERNEL_SOURCES}
