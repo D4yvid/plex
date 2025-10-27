@@ -3,7 +3,7 @@
 #include <pico/bootrom.h>
 #include <pico/platform/common.h>
 #include <pico/stdio.h>
-#include <plex/kernel.h>
+#include <plex/kernel/kernel.h>
 #include <plex/macros.h>
 #include <plex/types.h>
 #include <string.h>

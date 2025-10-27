@@ -1,4 +1,4 @@
-#include <plex/kernel.h>
+#include <plex/kernel/kernel.h>
 
 [[noreturn]]
 void kernel_main(kernel_init_info_t *info) {

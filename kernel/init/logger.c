@@ -1,4 +1,4 @@
-#include <plex/log.h>
+#include <plex/kernel/logger.h>
 #include <stdarg.h>
 
 /** The variable in which the platform will define to set the logger */
