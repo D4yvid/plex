@@ -100,23 +100,24 @@ internal int read_input(char *buffer, size_t buffer_size) {
 
 internal void boot_menu(kernel_init_info_t *info) {
   // Wait for a character to be entered
-  fgetc(stdin);
+  stdio_getchar();
 
-  puts("Plex Boot Menu for " CURRENT_FAMILY);
+  stdio_puts("Plex Boot Menu for " CURRENT_FAMILY);
 
   while (1) {
-    puts("Options:");
-    puts("1. Boot");
-    printf("2. Set kernel command-line (current: %s)\n", info->command_line);
-    puts("3. Reboot to BOOTSEL mode");
+    stdio_puts("Options:");
+    stdio_puts("1. Boot");
+    stdio_printf("2. Set kernel command-line (current: %s)\n",
+                 info->command_line);
+    stdio_puts("3. Reboot to BOOTSEL mode");
 
-    printf("> ");
-    int c = fgetc(stdin);
+    stdio_printf("> ");
+    int c = stdio_getchar();
 
     c -= '0'; // Get option number
 
     if (c > 3 || c < 1) {
-      puts("\nERROR: invalid option");
+      stdio_puts("\nERROR: invalid option");
 
       continue;
     }
@@ -126,7 +127,7 @@ internal void boot_menu(kernel_init_info_t *info) {
     }
 
     if (c == 2) {
-      puts("\nPlease input the new kernel command line:");
+      stdio_puts("\nPlease input the new kernel command line:");
 
       read_input(cmdline, sizeof(cmdline));
       info->command_line = cmdline;
@@ -141,7 +142,7 @@ internal void boot_menu(kernel_init_info_t *info) {
     }
   }
 
-  puts("\nBooting...");
+  stdio_puts("\nBooting...");
 }
 
 int main() {
