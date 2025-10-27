@@ -47,10 +47,12 @@ internal bool check_stdio() {
   return false;
 }
 
-char cmdline[4096] = {0};
+/// The commandline buffer where the `read_input` will store the inputted
+/// cmdline
+char cmdline[512] = KERNEL_CMDLINE;
 
-internal int read_input(char *buffer, size_t buffer_size) {
-  int idx = 0, c = 0;
+internal int read_input(char *buffer, size_t buffer_size, int starting_idx) {
+  int idx = starting_idx, c = 0;
 
   if (buffer_size <= 0)
     return 0;
@@ -112,6 +114,8 @@ internal void boot_menu(kernel_init_info_t *info) {
     stdio_puts("3. Reboot to BOOTSEL mode");
 
     stdio_printf("> ");
+    stdio_flush();
+
     int c = stdio_getchar();
 
     c -= '0'; // Get option number
@@ -123,22 +127,24 @@ internal void boot_menu(kernel_init_info_t *info) {
     }
 
     if (c == 1) {
+      printf("1 - Boot");
       break;
     }
 
     if (c == 2) {
-      stdio_puts("\nPlease input the new kernel command line:");
+      stdio_puts("2 - Set kernel command-line\nPlease input the new kernel "
+                 "command line:");
 
-      read_input(cmdline, sizeof(cmdline));
+      read_input(cmdline, sizeof(cmdline), strlen(cmdline));
       info->command_line = cmdline;
     }
 
     if (c == 3) {
-      reset_usb_boot(0, 1);
+      stdio_puts("3 - Reboot to BOOTSEL mode");
 
-      // This should never return.
       for (;;)
-        ;
+        // This should never return.
+        reset_usb_boot(0, 1);
     }
   }
 
